@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="styles.css" rel="stylesheet" />
+
+    <title>Weather Test</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center">Weather Test</h1>
+      <div class="inputs-wrapper">
+        <div class="mb-3">
+          <label for="lat" class="form-label">Lattitude</label>
+          <input
+            type="text"
+            class="form-control"
+            id="lat"
+            placeholder="Lattitude"
+            value="44.34"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="lon" class="form-label">Longitude</label>
+          <input
+            type="text"
+            class="form-control"
+            id="lon"
+            placeholder="Longitude"
+            value="10.99"
+          />
+        </div>
+        <button
+          type="button"
+          class="btn btn-primary w-100"
+          id="go"
+          onclick="Go()"
+        >
+          Go
+        </button>
+        <div id="message" class="form-label message">Longitude</div>
+      </div>
+    </div>
+    <script
+      type="text/javascript"
+      src="http://localhost:1409/client/weatherSdk.js"
+    ></script>
+
+    <script type="text/javascript">
+      function Go() {
+        let context = {
+          lattitude: document.getElementById("lat").value,
+          longitude: document.getElementById("lon").value,
+        };
+
+        function onComplete(city, temp, country) {
+          let message =
+            "City: " + city + ", Temp: " + temp + ", Country: " + country;
+          document.getElementById("message").innerText = message;
+        }
+        function onError(error) {
+          alert(error);
+        }
+        let weather = new weatherSdk.calc(context, onComplete, onError);
+      }
+    </script>
+  </body>
+</html>
